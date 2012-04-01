@@ -56,13 +56,13 @@ var create_board = function (app_data) {
     var ids = "";
     for (j = 0; j < app_data.states_order.length; j++) {
         var state = app_data.states_order[j];
-        ids += ((ids.length==0)?'':', ') + '#' + state;
+        ids += ((ids.length == 0) ? '' : ', ') + '#' + state;
         var state_column = create_column(app_data.board, state, app_data.states[state]);
         table.append(state_column);
     }
-    $(function() {
+    $(function () {
         $(ids).sortable({
-            connectWith: ".state"
+            connectWith:".state"
         }).disableSelection();
     });
     return table;
@@ -77,25 +77,8 @@ var init_and_create_board = function () {
 $('#board_link').click(function () {
     init_and_create_board();
     $('#board-container').show();
-    $('#data_link').show();
     $('#data_output').hide();
     $('#board_link').hide();
-});
-
-$('#data_link').click(function () {
-    var data = "";
-    $('#board .dp10').each(function () {
-        var state = $(this).data('state');
-        $(this).find('li').each(function () {
-            var story = $(this).data('story');
-            data += state + ',' + story[1] + ',' + story[2] + '\n';
-        });
-    });
-    $('#data_output').val(data);
-    $('#board-container').hide();
-    $('#data_link').hide();
-    $('#data_output').show();
-    $('#board_link').show();
 });
 
 init_and_create_board();
