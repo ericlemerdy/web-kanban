@@ -1,4 +1,3 @@
-$('#board_link').hide();
 $('#data_output').hide();
 
 var initial_states = {
@@ -73,12 +72,5 @@ var init_and_create_board = function () {
     $('#board-container').empty();
     $('#board-container').append(create_board(app_data));
 }
-
-$('#board_link').click(function () {
-    init_and_create_board();
-    $('#board-container').show();
-    $('#data_output').hide();
-    $('#board_link').hide();
-});
 
 init_and_create_board();
