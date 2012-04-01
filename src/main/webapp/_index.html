@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="shortcut icon" href="favicon.png">
+	<meta charset="utf-8">
+	<title>Web kanban</title>
+	<style>
+		body {
+			text-align: center;
+		}
+
+		#board {
+			display: table;
+		}
+
+		#board section {
+			display: table-cell;
+			width: 300px;
+		}
+	</style>
+</head>
+<body>
+<h1>Web Kanban</h1>
+
+<div id="board">
+	<section id="todo">
+		<header><h2>Todo</h2></header>
+	</section>
+	<section id="in-progress">
+		<header><h2>In Progress</h2></header>
+	</section>
+	<section id="done">
+		<header><h2>Done</h2></header>
+	</section>
+</div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
+<script>!window.jQuery && document.write(unescape('%3Cscript src="js/libs/jquery-1.7.2.js"%3E%3C/script%3E'))</script>
+</body>
+</html>
