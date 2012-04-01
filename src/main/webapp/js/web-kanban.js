@@ -10,6 +10,12 @@ var initial_states = {
     "states_order":[ "TODO", "WIP", "DONE" ]
 };
 
+var stories = [
+    "TODO,1,sleep at night",
+    "WIP,2,rest in front of the tv",
+    "DONE,3,eat. a lot."
+];
+
 var init_board = function (stories) {
     var board = {};
     for (var i = 0, len = stories.length; i < len; i++) {
@@ -58,14 +64,14 @@ var create_board = function (app_data) {
     return table;
 };
 
-var init_and_create_board = function (data_id) {
-    var app_data = { board:init_board($('#' + data_id).val().split('\n')), states:initial_states.states, states_order:initial_states.states_order};
+var init_and_create_board = function () {
+    var app_data = { board:init_board(stories), states:initial_states.states, states_order:initial_states.states_order};
     $('#board-container').empty();
     $('#board-container').append(create_board(app_data));
 }
 
 $('#board_link').click(function () {
-    init_and_create_board('data_output');
+    init_and_create_board();
     $('#board-container').show();
     $('#data_link').show();
     $('#data_output').hide();
@@ -88,4 +94,4 @@ $('#data_link').click(function () {
     $('#board_link').show();
 });
 
-init_and_create_board('stories');
+init_and_create_board();

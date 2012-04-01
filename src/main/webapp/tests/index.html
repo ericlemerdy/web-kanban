@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
+	<script src="../js/libs/jquery.dragsort-0.5.1.js"></script>
+	<link rel="stylesheet" type="text/css" href="//code.jquery.com/qunit/git/qunit.css"/>
+	<script src="//code.jquery.com/qunit/git/qunit.js"></script>
+	<script src="../js/web-kanban.js"></script>
+
+	<script>
+		$(document).ready(function () {
+
+			test("a basic test example", function () {
+				ok(true, "this test is fine");
+				var value = "hello";
+				equal(value, "hello", "We expect value to be hello");
+			});
+
+			module("Module A");
+
+			test("first test within module", function () {
+				ok(true, "all pass");
+			});
+
+			test("second test within module", function () {
+				ok(true, "all pass");
+			});
+
+			module("Module B");
+
+			test("some other test", function () {
+				expect(2);
+				equal(true, false, "failing test");
+				equal(true, true, "passing test");
+			});
+
+		});
+	</script>
+
+</head>
+<body>
+<h1 id="qunit-header">QUnit example</h1>
+
+<h2 id="qunit-banner"></h2>
+
+<div id="qunit-testrunner-toolbar"></div>
+<h2 id="qunit-userAgent"></h2>
+<ol id="qunit-tests"></ol>
+<div id="qunit-fixture">test markup, will be hidden</div>
+</body>
+</html>
