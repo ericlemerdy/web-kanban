@@ -12,12 +12,6 @@ WIP,2,rest in front of the tv
 DONE,3,eat. a lot.
 </textarea>
 
-<textarea rows="1" id="states" style="visibility: hidden;">
-TODO,Todo
-WIP,In Progress
-DONE,Done
-</textarea>
-
 <a id="data_link" class="button" href="#" style="float:right;">Data</a>
 <a id="board_link" class="button" href="#" style="float:right;">Board</a>
 
@@ -123,17 +117,13 @@ DONE,Done
 	$('#board_link').hide();
 	$('#data_output').hide();
 
-	var init_states = function (states_input) {
-		var states = {};
-		var states_order = [];
-		for (var i = 0, len = states_input.length; i < len; i++) {
-			var state = states_input[i].split(',');
-			if (state.length == 2) {
-				states[state[0]] = state[1];
-				states_order.push(state[0]);
-			}
-		}
-		return { states:states, states_order:states_order };
+	var initial_states = {
+		"states":{
+			"DONE":"Done",
+			"TODO":"Todo",
+			"WIP":"Work in progress"
+		},
+		"states_order":[ "TODO", "WIP", "DONE" ]
 	};
 
 	var init_board = function (stories) {
@@ -184,16 +174,15 @@ DONE,Done
 		return table;
 	};
 
-    var init_and_create_board = function (data_id) {
-        var state_data = init_states($('#states').text().split('\n'));
-        var app_data = { board:init_board($('#' + data_id).val().split('\n')), states:state_data.states, states_order:state_data.states_order};
-        $('#board-container').empty();
-        $('#board-container').append(create_board(app_data));
-    }
+	var init_and_create_board = function (data_id) {
+		var app_data = { board:init_board($('#' + data_id).val().split('\n')), states:initial_states.states, states_order:initial_states.states_order};
+		$('#board-container').empty();
+		$('#board-container').append(create_board(app_data));
+	}
 
-    $('#board_link').click(function () {
-        init_and_create_board('data_output');
-        $('#board-container').show();
+	$('#board_link').click(function () {
+		init_and_create_board('data_output');
+		$('#board-container').show();
 		$('#data_link').show();
 		$('#data_output').hide();
 		$('#board_link').hide();
