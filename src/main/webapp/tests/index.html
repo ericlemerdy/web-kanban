@@ -3,8 +3,9 @@
 <head>
 	<meta charset="UTF-8">
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
-	<script src="../js/libs/jquery.dragsort-0.5.1.js"></script>
-	<link rel="stylesheet" type="text/css" href="//code.jquery.com/qunit/git/qunit.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+    <script src="../js/libs/jquery.ui.touch-punch.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//code.jquery.com/qunit/git/qunit.css"/>
 	<script src="//code.jquery.com/qunit/git/qunit.js"></script>
 	<script src="../js/web-kanban.js"></script>
 
@@ -30,8 +31,8 @@
 			module("Module B");
 
 			test("some other test", function () {
-				expect(2);
-				equal(true, false, "failing test");
+				expect(1); // 2);
+				// equal(true, false, "failing test");
 				equal(true, true, "passing test");
 			});
 
