@@ -23,7 +23,7 @@ DONE,Done
 
 <h1>Web Kanban</h1>
 
-<div id="output"></div>
+<div id="board-container"></div>
 <div class="clear"></div>
 
 <textarea id="data_output" rows="20" cols="100">
@@ -96,7 +96,7 @@ DONE,Done
 
 	.headline {
 		font-weight: bold;
-		height: 3em;
+		height: 2em;
 		color: #000000;
 	}
 
@@ -187,10 +187,10 @@ DONE,Done
 	$("#board_link").click(function () {
 		var state_data = init_states($("#states").text().split("\n"));
 		var app_data = { board:init_board($("#data_output").val().split("\n")), states:state_data.states, states_order:state_data.states_order};
-		$("#output").empty();
-		$("#output").append(create_board(app_data));
+		$("#board-container").empty();
+		$("#board-container").append(create_board(app_data));
 
-		$("#output").show();
+		$("#board-container").show();
 		$("#data_link").show();
 		$("#data_output").hide();
 		$("#board_link").hide();
@@ -206,7 +206,7 @@ DONE,Done
 			});
 		});
 		$("#data_output").val(data);
-		$("#output").hide();
+		$("#board-container").hide();
 		$("#data_link").hide();
 		$("#data_output").show();
 		$("#board_link").show();
@@ -214,8 +214,8 @@ DONE,Done
 
 	var state_data = init_states($("#states").text().split("\n"));
 	var app_data = { board:init_board($("#stories").text().split("\n")), states:state_data.states, states_order:state_data.states_order};
-	$("#output").empty();
-	$("#output").append(create_board(app_data));
+	$("#board-container").empty();
+	$("#board-container").append(create_board(app_data));
 </script>
 </body>
 </html>
