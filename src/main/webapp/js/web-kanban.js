@@ -35,7 +35,7 @@ var create_list = function (board, state) {
     var list = $('<ul class="state" id="' + state + '"></ul>');
     if (board[state]) {
         for (var i = 0, len = board[state].length; i < len; i++) {
-            var story_element = $('<li><div class="box box_' + state + '">' + board[state][i][1] + ' ' + board[state][i][2] + '</div></li>');
+            var story_element = $('<li class="box box_' + state + '">' + board[state][i][1] + ' ' + board[state][i][2] + '</li>');
             story_element.data("story", board[state][i]);
             list.append(story_element);
         }
@@ -56,11 +56,15 @@ var create_board = function (app_data) {
     var ids = "";
     for (j = 0; j < app_data.states_order.length; j++) {
         var state = app_data.states_order[j];
-        ids += '#' + state + ',';
+        ids += ((ids.length==0)?'':', ') + '#' + state;
         var state_column = create_column(app_data.board, state, app_data.states[state]);
         table.append(state_column);
     }
-    $(ids, table).dragsort({ dragBetween:true });
+    $(function() {
+        $(ids).sortable({
+            connectWith: ".state"
+        }).disableSelection();
+    });
     return table;
 };
 
