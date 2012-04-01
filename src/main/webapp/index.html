@@ -120,26 +120,26 @@ DONE,Done
 <script>!window.jQuery && document.write(unescape('%3Cscript src="js/libs/jquery-1.7.2.js"%3E%3C/script%3E'))</script>
 <script src="js/libs/jquery.dragsort-0.5.1.js"></script>
 <script>
-	$("#board_link").hide();
-	$("#data_output").hide();
+	$('#board_link').hide();
+	$('#data_output').hide();
 
 	var init_states = function (states_input) {
 		var states = {};
 		var states_order = [];
 		for (var i = 0, len = states_input.length; i < len; i++) {
-			var state = states_input[i].split(",");
+			var state = states_input[i].split(',');
 			if (state.length == 2) {
 				states[state[0]] = state[1];
 				states_order.push(state[0]);
 			}
 		}
-		return {states:states, states_order:states_order};
+		return { states:states, states_order:states_order };
 	};
 
 	var init_board = function (stories) {
 		var board = {};
 		for (var i = 0, len = stories.length; i < len; i++) {
-			var story = stories[i].split(",");
+			var story = stories[i].split(',');
 			var state = story[0];
 			if (story.length == 3) {
 				if (!board[state]) {
@@ -152,10 +152,10 @@ DONE,Done
 	};
 
 	var create_list = function (board, state) {
-		var list = $("<ul class=\"state\" id=\"" + state + "\"></ul>");
+		var list = $('<ul class="state" id="' + state + '"></ul>');
 		if (board[state]) {
 			for (var i = 0, len = board[state].length; i < len; i++) {
-				var story_element = $("<li><div class=\"box box_" + state + "\">" + board[state][i][1] + " " + board[state][i][2] + "</div></li>");
+				var story_element = $('<li><div class="box box_' + state + '">' + board[state][i][1] + ' ' + board[state][i][2] + '</div></li>');
 				story_element.data("story", board[state][i]);
 				list.append(story_element);
 			}
@@ -164,8 +164,8 @@ DONE,Done
 	};
 
 	var create_column = function (board, state, headline) {
-		var state_column = $("<div class=\"dp10\"></div>");
-		state_column.append($("<div class=\"headline\">" + headline + "</div>"));
+		var state_column = $('<div class="dp10"></div>');
+		state_column.append($('<div class="headline">' + headline + '</div>'));
 		state_column.append(create_list(board, state));
 		state_column.data("state", state);
 		return state_column;
@@ -176,7 +176,7 @@ DONE,Done
 		var ids = "";
 		for (j = 0; j < app_data.states_order.length; j++) {
 			var state = app_data.states_order[j];
-			ids += "#" + state + ",";
+			ids += '#' + state + ',';
 			var state_column = create_column(app_data.board, state, app_data.states[state]);
 			table.append(state_column);
 		}
@@ -184,38 +184,38 @@ DONE,Done
 		return table;
 	};
 
-	$("#board_link").click(function () {
-		var state_data = init_states($("#states").text().split("\n"));
-		var app_data = { board:init_board($("#data_output").val().split("\n")), states:state_data.states, states_order:state_data.states_order};
-		$("#board-container").empty();
-		$("#board-container").append(create_board(app_data));
+	$('#board_link').click(function () {
+		var state_data = init_states($('#states').text().split('\n'));
+		var app_data = { board:init_board($('#data_output').val().split('\n')), states:state_data.states, states_order:state_data.states_order};
+		$('#board-container').empty();
+		$('#board-container').append(create_board(app_data));
 
-		$("#board-container").show();
-		$("#data_link").show();
-		$("#data_output").hide();
-		$("#board_link").hide();
+		$('#board-container').show();
+		$('#data_link').show();
+		$('#data_output').hide();
+		$('#board_link').hide();
 	});
 
-	$("#data_link").click(function () {
+	$('#data_link').click(function () {
 		var data = "";
-		$("#board .dp10").each(function () {
-			var state = $(this).data("state");
-			$(this).find("li").each(function () {
-				var story = $(this).data("story");
-				data += state + "," + story[1] + "," + story[2] + "\n";
+		$('#board .dp10').each(function () {
+			var state = $(this).data('state');
+			$(this).find('li').each(function () {
+				var story = $(this).data('story');
+				data += state + ',' + story[1] + ',' + story[2] + '\n';
 			});
 		});
-		$("#data_output").val(data);
-		$("#board-container").hide();
-		$("#data_link").hide();
-		$("#data_output").show();
-		$("#board_link").show();
+		$('#data_output').val(data);
+		$('#board-container').hide();
+		$('#data_link').hide();
+		$('#data_output').show();
+		$('#board_link').show();
 	});
 
-	var state_data = init_states($("#states").text().split("\n"));
-	var app_data = { board:init_board($("#stories").text().split("\n")), states:state_data.states, states_order:state_data.states_order};
-	$("#board-container").empty();
-	$("#board-container").append(create_board(app_data));
+	var state_data = init_states($('#states').text().split('\n'));
+	var app_data = { board:init_board($('#stories').text().split('\n')), states:state_data.states, states_order:state_data.states_order};
+	$('#board-container').empty();
+	$('#board-container').append(create_board(app_data));
 </script>
 </body>
 </html>
