@@ -41,8 +41,8 @@ var create_list = function (board, state) {
 };
 
 var create_column = function (board, state, headline) {
-    var state_column = $('<div class="dp10"></div>');
-    state_column.append($('<div class="headline">' + headline + '</div>'));
+    var state_column = $('<section class="column"></div>');
+    state_column.append($('<header class="headline">' + headline + '</header>'));
     state_column.append(create_list(board, state));
     state_column.data("state", state);
     return state_column;
@@ -50,6 +50,7 @@ var create_column = function (board, state, headline) {
 
 var create_board = function (app_data) {
     var table = $('<div id="board"></div>');
+    table.append($('<aside><button>New Story</button></aside>'));
     var ids = "";
     for (j = 0; j < app_data.states_order.length; j++) {
         var state = app_data.states_order[j];

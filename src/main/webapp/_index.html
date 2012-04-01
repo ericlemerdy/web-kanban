@@ -17,20 +17,36 @@
 			display: table-cell;
 			width: 300px;
 		}
+
+		#board section ul {
+			list-style: none;
+			padding: 0 0 0 0;
+		}
 	</style>
 </head>
 <body>
 <h1>Web Kanban</h1>
 
 <div id="board">
+	<aside>
+		<button>Add story</button>
+	</aside>
 	<section id="todo">
 		<header><h2>Todo</h2></header>
+		<ul>
+			<li>ABC</li>
+			<li>DEF</li>
+		</ul>
 	</section>
 	<section id="in-progress">
 		<header><h2>In Progress</h2></header>
 	</section>
 	<section id="done">
 		<header><h2>Done</h2></header>
+		<ul>
+			<li>ABC</li>
+			<li>DEF</li>
+		</ul>
 	</section>
 </div>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
