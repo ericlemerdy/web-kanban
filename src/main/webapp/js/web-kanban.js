@@ -1,5 +1,3 @@
-$('#data_output').hide();
-
 var initial_states = {
     "states":{
         "DONE":"Done",
