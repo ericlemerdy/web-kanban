@@ -1,0 +1,14 @@
+#TODO .box {
+    background-color: hotpink;
+    color: #000000;
+}
+
+#WIP .box {
+    background-color: lemonchiffon;
+    color: #000000;
+}
+
+#DONE .box {
+    background-color: cornflowerblue;
+    color: #000000;
+}
