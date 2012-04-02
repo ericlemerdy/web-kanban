@@ -28,12 +28,17 @@ var init_board = function (stories) {
     return board;
 };
 
+var create_box = function (state, board, i) {
+    var story_element = $('<li class="box box_' + state + '">' + board[state][i][1] + ' ' + board[state][i][2] + '</li>');
+    story_element.data("story", board[state][i]);
+    return story_element;
+};
+
 var create_list = function (board, state) {
     var list = $('<ul class="state" id="' + state + '"></ul>');
     if (board[state]) {
         for (var i = 0, len = board[state].length; i < len; i++) {
-            var story_element = $('<li class="box box_' + state + '">' + board[state][i][1] + ' ' + board[state][i][2] + '</li>');
-            story_element.data("story", board[state][i]);
+            var story_element = create_box(state, board, i);
             list.append(story_element);
         }
     }
@@ -50,7 +55,20 @@ var create_column = function (board, state, headline) {
 
 var create_board = function (app_data) {
     var table = $('<div id="board"></div>');
-    table.append($('<aside><button>New Story</button></aside>'));
+    var aside = $('<aside></aside>');
+    table.append(aside);
+    aside.append($('<input id="new-story-text" type="text" value="Do something new" title="New story label"/>'));
+    aside.append($('<br/>'));
+    var button = $('<button id="new-story">Add story</button>');
+    button.button();
+    button.click(function () {
+        var new_box = create_box("TODO", {"TODO":[
+            ["", "0", $('#new-story-text').val()]
+        ]}, 0);
+        $('#TODO').append(new_box);
+    });
+    aside.append(button);
+
     var ids = "";
     for (j = 0; j < app_data.states_order.length; j++) {
         var state = app_data.states_order[j];
