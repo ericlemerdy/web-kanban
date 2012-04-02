@@ -12,7 +12,7 @@ body {
     display: table;
 }
 
-.box {
+.story {
     cursor: pointer;
     font-size: 80%;
     padding: 0.2em;
@@ -28,7 +28,7 @@ body {
     -box-shadow: 4px 4px 8px lightgray;
 }
 
-.column {
+.state-column {
     width: 150px;
     display: table-cell;
     margin-right: -1px;

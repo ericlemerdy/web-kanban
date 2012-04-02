@@ -1,14 +1,14 @@
-#TODO .box {
+#TODO .story {
     background-color: hotpink;
     color: #000000;
 }
 
-#WIP .box {
+#WIP .story {
     background-color: lemonchiffon;
     color: #000000;
 }
 
-#DONE .box {
+#DONE .story {
     background-color: cornflowerblue;
     color: #000000;
 }
