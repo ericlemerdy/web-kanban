@@ -1,7 +1,7 @@
 Web-kanban
 ==========
 
-![Web-kanban](web-kanban/raw/master/screenshot.png)
+![Web-kanban](web-kanban/raw/master/screenshot.png) {@style=text-align: center; box-shadow: 8px 8px 18px black;}
 
 A simple javascript application to display draggable tickets on a web page.
 
