@@ -17,13 +17,15 @@ var add_story_button = function () {
     addStory.button();
     addStory.click(function () {
         $.ajax({
-            url: 'api/story/' + $('#add-story-text').val(),
-            type: 'PUT',
-            dataType: 'json',
-            success: function (data) {
-                console.log(data);
+            url:'api/story/' + $('#add-story-text').val(),
+            type:'PUT',
+            dataType:'json',
+            success:function (data) {
                 var newStory = create_and_attach_story(data);
                 newStory.show("drop");
+            },
+            error:function (data) {
+                $('#message').html('<p>' + data.responseText + '</p>');
             }
         })
     });
