@@ -6,7 +6,7 @@ var create_and_attach_story = function (story) {
     return storyElement;
 };
 var fetch_and_create_stories = function () {
-    $.getJSON('http://localhost:8080/web-kanban/api/stories.json', function (data) {
+    $.getJSON('api/stories.json', function (data) {
         for (var i in data.stories) {
             create_and_attach_story(data.stories[i]);
         }
@@ -16,8 +16,16 @@ var add_story_button = function () {
     var addStory = $('#add-story');
     addStory.button();
     addStory.click(function () {
-        var newStory = create_and_attach_story({"state":"TODO", "label":$('#add-story-text').val()});
-        newStory.show("drop");
+        $.ajax({
+            url: 'api/story/' + $('#add-story-text').val(),
+            type: 'PUT',
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                var newStory = create_and_attach_story(data);
+                newStory.show("drop");
+            }
+        })
     });
 }
 var make_states_columns_sortable = function () {
