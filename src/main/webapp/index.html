@@ -11,7 +11,27 @@
 <header>
 	<h1>Web Kanban</h1>
 </header>
-<div id="board-container"></div>
+<div id="board-container">
+	<div id="board">
+		<aside>
+			<input id="add-story-text" type="text" value="Do something new" title="New story label"/>
+			<br/>
+			<button id="add-story">Add story</button>
+		</aside>
+		<section class="state-column">
+			<header class="headline">Todo</header>
+			<ul class="state" id="TODO"></ul>
+		</section>
+		<section class="state-column">
+			<header class="headline">Work In prograss</header>
+			<ul class="state" id="WIP"></ul>
+		</section>
+		<section class="state-column">
+			<header class="headline">Done</header>
+			<ul class="state" id="DONE"></ul>
+		</section>
+	</div>
+</div>
 <footer class="clear">
 	Written by Stephan Schmidt, who can be found on Twitter <a href="http://twitter.com/codemonkeyism">http://twitter.com/codemonkeyism</a>,
 	Blog at <a href="http://www.codemonkeyism.com">http://www.codemonkeyism.com</a>, using

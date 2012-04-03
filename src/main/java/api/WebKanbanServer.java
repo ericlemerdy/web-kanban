@@ -18,7 +18,7 @@ public class WebKanbanServer {
 	@Path("stories.json")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response stories() throws JSONException {
-		List<String> stories = asList("TODO,1,sleep at night", "WIP,2,rest in front of the tv", "DONE,3,eat. a lot.");
+		List<Story> stories = asList(new Story("TODO", "sleep at night"), new Story("WIP", "rest in front of the tv"), new Story("DONE", "eat. a lot."));
 		return Response.ok(ImmutableMap.of("stories", stories)).build();
 	}
 

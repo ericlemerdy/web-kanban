@@ -22,7 +22,7 @@ public class WebKanbanServerTest {
 	}
 
 	@Test
-	public void should_retrieve_commits_as_JSON() {
-		expect().body("stories", hasItems("TODO,1,sleep at night", "WIP,2,rest in front of the tv", "DONE,3,eat. a lot.")).when().get("/stories.json");
+	public void should_retrieve_stories_as_JSON() {
+		expect().body("stories.state", hasItems("TODO", "WIP", "DONE")).and().body("stories.label", hasItems("sleep at night", "rest in front of the tv", "eat. a lot.")).when().get("/stories.json");
 	}
 }
