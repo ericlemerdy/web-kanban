@@ -27,8 +27,8 @@ public class WebKanbanServer {
 	@PUT
 	@Path("story/{label}")
 	@Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
-	public Response addStory(@PathParam("label") String label) throws JSONException {
-		if (getStory(label)) {
+	public Response addStory(@PathParam("label") String label) {
+		if (isStoryExists(label)) {
 			return Response.status(Response.Status.BAD_REQUEST).entity("this story already exists").build();
 		}
 		Story newStory = new Story("TODO", label);
@@ -36,13 +36,28 @@ public class WebKanbanServer {
 		return Response.status(Response.Status.CREATED).entity(newStory).build();
 	}
 
-	private boolean getStory(String label) {
+	@POST
+	@Path("story/{label}/{state}")
+	public Response changeStoryState(@PathParam("label") String label, @PathParam("state") String state) throws JSONException {
+		if (!isStoryExists(label)) {
+			return Response.status(Response.Status.BAD_REQUEST).entity("this story does not exists").build();
+		}
+		stories.remove(getStory(label));
+		stories.add(new Story(state, label));
+		return Response.ok().build();
+	}
+
+	private Story getStory(String label) {
 		for (Story story : stories) {
 			if (story.label.equals(label)) {
-				return true;
+				return story;
 			}
 		}
-		return false;
+		return null;
+	}
+
+	private boolean isStoryExists(String label) {
+		return getStory(label) != null;
 	}
 
 	public static HttpServer start() throws IOException {

@@ -36,4 +36,9 @@ public class WebKanbanServerTest {
 	public void should_not_add_existing_story() {
 		expect().statusCode(400).content(equalTo("this story already exists")).when().put("/story/sleep at night").thenReturn();
 	}
+
+	@Test
+	public void when_a_story_change_state_should_save_change() {
+		expect().statusCode(200).when().post("/story/sleep at night/WIP").thenReturn();
+	}
 }

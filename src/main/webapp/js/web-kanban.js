@@ -32,8 +32,23 @@ var add_story_button = function () {
 }
 var make_states_columns_sortable = function () {
     $('.state').sortable({
-        connectWith:".state"
+        connectWith:".state",
+        success:function () {
+            console.log("succès du sort");
+        }
     }).disableSelection();
+    $('.state').droppable({
+        drop:function (event, ui) {
+            console.log(ui);
+            $.ajax({
+                url:'api/story/' + $(event.srcElement).text() + '/' + this.id,
+                type:'POST',
+                error:function (data) {
+                    $('#message').html('<p>Error when changing the state.</p>');
+                }
+            })
+        }
+    });
 };
 $(function () {
     add_story_button();
