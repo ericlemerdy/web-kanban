@@ -1,8 +1,10 @@
-package api;
+package resource;
 
 import com.google.common.collect.*;
 import com.sun.jersey.api.container.httpserver.*;
 import com.sun.net.httpserver.*;
+import config.*;
+import model.*;
 import org.codehaus.jettison.json.*;
 import repository.*;
 
@@ -54,7 +56,7 @@ public class WebKanbanServer {
 	}
 
 	public static HttpServer start() throws IOException {
-		HttpServer httpServer = HttpServerFactory.create("http://localhost:8080/");
+		HttpServer httpServer = HttpServerFactory.create("http://localhost:8080/", new KanbanJerseyApplication());
 		httpServer.start();
 		return httpServer;
 	}

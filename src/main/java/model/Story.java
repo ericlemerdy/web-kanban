@@ -1,4 +1,4 @@
-package api;
+package model;
 
 public class Story {
 	public final String label;

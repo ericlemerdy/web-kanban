@@ -1,4 +1,4 @@
-package api;
+package resource;
 
 import com.sun.net.httpserver.*;
 import org.junit.*;
