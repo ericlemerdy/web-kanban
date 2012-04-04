@@ -25,7 +25,7 @@ var add_story_button = function () {
                 newStory.show("drop");
             },
             error:function (data) {
-                $('#message').html('<p>' + data.responseText + '</p>');
+                $('#error-message').html('<p>' + data.responseText + '</p>');
             }
         })
     });
@@ -44,7 +44,7 @@ var make_states_columns_sortable = function () {
                 url:'api/story/' + $(event.srcElement).text() + '/' + this.id,
                 type:'POST',
                 error:function (data) {
-                    $('#message').html('<p>Error when changing the state.</p>');
+                    $('#error-message').html('<p>Error when changing the state.</p>');
                 }
             })
         }

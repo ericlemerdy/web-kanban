@@ -5,7 +5,7 @@
 	<link rel="shortcut icon" href="favicon.png">
 	<title>Web Kanban</title>
 	<link rel="stylesheet" type="text/css"
-		  href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/flick/jquery-ui.css" media="all"/>
+		  href="css/libs/jqueryui/1.8.18/themes/flick/jquery-ui.css"/>
 	<link rel="stylesheet" type="text/css" href="css/states.css"/>
 	<link rel="stylesheet" type="text/css" href="css/style.css"/>
 </head>
@@ -13,10 +13,10 @@
 <header>
 	<h1>Web Kanban</h1>
 </header>
-<div id="message"></div>
 <div id="board-container">
 	<div id="board">
 		<aside>
+			<div id="error-message" class="ui-state-error"></div>
 			<input id="add-story-text" type="text" value="Do something new" title="New story label"/>
 			<br/>
 			<button id="add-story">Add story</button>
