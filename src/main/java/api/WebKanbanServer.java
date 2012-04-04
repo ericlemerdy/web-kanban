@@ -3,8 +3,8 @@ package api;
 import com.google.common.collect.*;
 import com.sun.jersey.api.container.httpserver.*;
 import com.sun.net.httpserver.*;
-import fr.*;
 import org.codehaus.jettison.json.*;
+import repository.*;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
@@ -26,22 +26,31 @@ public class WebKanbanServer {
 	@Path("story/{label}")
 	@Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
 	public Response addStory(@PathParam("label") String label) {
-		if (allStories.exists(label)) {
-			return Response.status(Response.Status.BAD_REQUEST).entity("this story already exists").build();
-		}
 		Story newStory = new Story("TODO", label);
-		allStories.add(newStory);
-		return Response.status(Response.Status.CREATED).entity(newStory).build();
+		try {
+			allStories.add(newStory);
+			return Response.status(Response.Status.CREATED).entity(newStory).build();
+		} catch (Exception e) {
+			return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+		}
+	}
+
+	@PUT
+	@Path("story")
+	@Produces(MediaType.TEXT_PLAIN)
+	public Response addStoryWithAnEmptyLabel() {
+		return Response.status(Response.Status.BAD_REQUEST).entity("Please provide a story label to add.").build();
 	}
 
 	@POST
 	@Path("story/{label}/{state}")
-	public Response changeStoryState(@PathParam("label") String label, @PathParam("state") String state) throws JSONException {
-		if (!allStories.exists(label)) {
-			return Response.status(Response.Status.BAD_REQUEST).entity("this story does not exists").build();
+	public Response changeStoryState(@PathParam("label") String label, @PathParam("state") String state) {
+		try {
+			allStories.update(label, state);
+			return Response.ok().build();
+		} catch (Exception e) {
+			return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
 		}
-		allStories.update(label, state);
-		return Response.ok().build();
 	}
 
 	public static HttpServer start() throws IOException {

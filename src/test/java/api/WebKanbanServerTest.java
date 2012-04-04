@@ -34,7 +34,12 @@ public class WebKanbanServerTest {
 
 	@Test
 	public void should_not_add_existing_story() {
-		expect().statusCode(400).content(equalTo("this story already exists")).when().put("/story/sleep at night").thenReturn();
+		expect().statusCode(400).content(equalTo("The story 'sleep at night' already exists.")).when().put("/story/sleep at night").thenReturn();
+	}
+
+	@Test
+	public void with_an_empty_label_should_not_add_story() {
+		expect().statusCode(400).content(equalTo("Please provide a story label to add.")).when().put("/story/").thenReturn();
 	}
 
 	@Test

@@ -32,10 +32,7 @@ var add_story_button = function () {
 }
 var make_states_columns_sortable = function () {
     $('.state').sortable({
-        connectWith:".state",
-        success:function () {
-            console.log("succès du sort");
-        }
+        connectWith:".state"
     }).disableSelection();
     $('.state').droppable({
         drop:function (event, ui) {
@@ -44,7 +41,7 @@ var make_states_columns_sortable = function () {
                 url:'api/story/' + $(event.srcElement).text() + '/' + this.id,
                 type:'POST',
                 error:function (data) {
-                    $('#error-message').html('<p>Error when changing the state.</p>');
+                    $('#error-message').html('<p>' + data.responseText + '</p>');
                 }
             })
         }
