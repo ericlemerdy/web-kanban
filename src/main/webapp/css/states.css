@@ -1,14 +1,17 @@
 #TODO .story {
     background-color: hotpink;
+    background-image: url('../img/todo.png');
     color: #000000;
 }
 
 #WIP .story {
     background-color: lemonchiffon;
+    background-image: url('../img/wip.png');
     color: #000000;
 }
 
 #DONE .story {
     background-color: cornflowerblue;
+    background-image: url('../img/done.png');
     color: #000000;
 }

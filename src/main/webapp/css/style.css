@@ -15,17 +15,11 @@ body {
 .story {
     cursor: pointer;
     font-size: 80%;
-    padding: 0.2em;
-    border: 1px solid grey;
+    padding: 7px 12px 16px 10px;
     margin-bottom: 1em;
     margin-right: 5px;
-    min-height: 50px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    -border-radius: 3px;
-    -moz-box-shadow: 4px 4px 8px lightgray;
-    -webkit-box-shadow: 4px 4px 8px lightgray;
-    -box-shadow: 4px 4px 8px lightgray;
+    height: 105px;
+    width: 163px;
 }
 
 .state-column {
@@ -46,6 +40,7 @@ aside {
     font-weight: bold;
     height: 2em;
     color: #000000;
+    text-align: center;
 }
 
 footer {

@@ -27,7 +27,6 @@ public class AllStories {
 
 	public void update(String label, String state) {
 		checkArgument(!isNullOrEmpty(label), "Please provide a story label for update.");
-		checkArgument(!isNullOrEmpty(label), "Please provide a story state for update.");
 		checkArgument(forName(label) != null, "The story '%s' does not exists.", label);
 		stories.remove(forName(label));
 		add(new Story(state, label));
