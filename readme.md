@@ -1,7 +1,7 @@
 Web-kanban
 ==========
 
-![Web-kanban](web-kanban/raw/master/screenshot.png)
+![Web-kanban](web-kanban/raw/master/src/main/img/screenshot.png)
 
 A simple javascript application to display draggable tickets on a web page.
 
