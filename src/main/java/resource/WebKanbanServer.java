@@ -19,14 +19,14 @@ public class WebKanbanServer {
 
 	@GET
 	@Path("stories.json")
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON + "; charset=UTF-8")
 	public Response stories() throws JSONException {
 		return Response.ok(ImmutableMap.of("stories", allStories.list())).build();
 	}
 
 	@PUT
 	@Path("story/{label}")
-	@Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
+	@Produces({MediaType.APPLICATION_JSON + "; charset=UTF-8", MediaType.TEXT_PLAIN + "; charset=UTF-8"})
 	public Response addStory(@PathParam("label") String label) {
 		Story newStory = new Story("TODO", label);
 		try {
@@ -39,13 +39,14 @@ public class WebKanbanServer {
 
 	@PUT
 	@Path("story")
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.TEXT_PLAIN + "; charset=UTF-8")
 	public Response addStoryWithAnEmptyLabel() {
 		return Response.status(Response.Status.BAD_REQUEST).entity("Please provide a story label to add.").build();
 	}
 
 	@POST
 	@Path("story/{label}/{state}")
+	@Produces(MediaType.TEXT_PLAIN + "; charset=UTF-8")
 	public Response changeStoryState(@PathParam("label") String label, @PathParam("state") String state) {
 		try {
 			allStories.update(label, state);
