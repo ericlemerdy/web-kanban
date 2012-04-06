@@ -9,8 +9,16 @@
             <param-value>config.KanbanJerseyApplication</param-value>
         </init-param>
     </servlet>
+    <servlet>
+        <servlet-name>Web Socket Servlet</servlet-name>
+        <servlet-class>websocket.WebKanbanWebsocketServer</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Jersey REST Service</servlet-name>
         <url-pattern>/api/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Web Socket Servlet</servlet-name>
+        <url-pattern>/ws/*</url-pattern>
     </servlet-mapping>
 </web-app>
