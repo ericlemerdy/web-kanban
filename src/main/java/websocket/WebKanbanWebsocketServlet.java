@@ -6,7 +6,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import java.io.*;
 
-public class WebKanbanWebsocketServer extends HttpServlet {
+public class WebKanbanWebSocketServlet extends HttpServlet {
 
 	private WebSocketFactory webSocketFactory;
 
@@ -15,30 +15,13 @@ public class WebKanbanWebsocketServer extends HttpServlet {
 		webSocketFactory = new WebSocketFactory(new WebSocketFactory.Acceptor() {
 			@Override
 			public WebSocket doWebSocketConnect(HttpServletRequest request, String protocol) {
-				return new WebSocket.OnTextMessage() {
-
-					@Override
-					public void onMessage(String data) {
-						System.out.println("message received:" + data);
-					}
-
-					@Override
-					public void onOpen(Connection connection) {
-						System.out.println("client connected");
-					}
-
-					@Override
-					public void onClose(int closeCode, String message) {
-						System.out.println("client closed");
-					}
-				};
+				return new WebKanbanWebSocket();
 			}
 
 			@Override
 			public boolean checkOrigin(HttpServletRequest request, String origin) {
 				return true;
 			}
-
 		});
 	}
 

@@ -11,7 +11,7 @@
     </servlet>
     <servlet>
         <servlet-name>Web Socket Servlet</servlet-name>
-        <servlet-class>websocket.WebKanbanWebsocketServer</servlet-class>
+        <servlet-class>websocket.WebKanbanWebSocketServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Jersey REST Service</servlet-name>

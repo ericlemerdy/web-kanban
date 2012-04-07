@@ -19,7 +19,7 @@ public class WebSocketTest implements WebSocket.OnTextMessage {
 	public void startWebServer() throws Exception {
 		server = new Server(8080);
 		ServletHandler servletHandler = new ServletHandler();
-		servletHandler.addServletWithMapping(WebKanbanWebsocketServer.class, "/ws/*");
+		servletHandler.addServletWithMapping(WebKanbanWebSocketServlet.class, "/ws/*");
 		server.setHandler(servletHandler);
 		server.start();
 	}
