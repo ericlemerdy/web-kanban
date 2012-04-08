@@ -28,9 +28,8 @@ public class WebKanbanServer {
 	@Path("story/{label}")
 	@Produces({MediaType.APPLICATION_JSON + "; charset=UTF-8", MediaType.TEXT_PLAIN + "; charset=UTF-8"})
 	public Response addStory(@PathParam("label") String label) {
-		Story newStory = new Story("TODO", label);
 		try {
-			allStories.add(newStory);
+			Story newStory = allStories.add("TODO", label);
 			return Response.status(Response.Status.CREATED).entity(newStory).build();
 		} catch (Exception e) {
 			return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
@@ -45,11 +44,11 @@ public class WebKanbanServer {
 	}
 
 	@POST
-	@Path("story/{label}/{state}")
+	@Path("story/{id}/{state}")
 	@Produces(MediaType.TEXT_PLAIN + "; charset=UTF-8")
-	public Response changeStoryState(@PathParam("label") String label, @PathParam("state") String state) {
+	public Response changeStoryState(@PathParam("id") int id, @PathParam("state") String state) {
 		try {
-			allStories.update(label, state);
+			allStories.update(id, state);
 			return Response.ok().build();
 		} catch (Exception e) {
 			return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();

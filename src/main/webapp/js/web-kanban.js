@@ -1,7 +1,7 @@
 var put_story_on_board = function (story) {
-    var storyElement = $('.story #' + story.label);
+    var storyElement = $('.story#' + story.id);
     if (storyElement.length == 0) {
-        storyElement = $('<li class="story" id="' + story.label + '"></li>');
+        storyElement = $('<li class="story" id="' + story.id + '"></li>');
         storyElement.append(story.label);
         storyElement.show('drop');
     } else {
@@ -38,7 +38,7 @@ var make_states_columns_sortable = function () {
     $('.state').droppable({
         drop:function (event, ui) {
             $.ajax({
-                url:'api/story/' + $(event.srcElement).text() + '/' + this.id,
+                url:'api/story/' + $(event.srcElement).attr('id') + '/' + this.id,
                 type:'POST',
                 error:function (data) {
                     $('#error-message').html('<p>' + data.responseText + '</p>');

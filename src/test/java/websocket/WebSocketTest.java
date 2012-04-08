@@ -31,10 +31,10 @@ public class WebSocketTest implements WebSocket.OnTextMessage {
 
 	@Test
 	public void should_refuse_http_GET_gracefully() throws Exception {
-		URL url = new URL("http://localhost:8080/ws");
-		HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+		HttpURLConnection urlConnection = (HttpURLConnection) new URL("http://localhost:8080/ws").openConnection();
 		assertThat(urlConnection.getResponseCode()).isEqualTo(503);
 		String errorContent = CharStreams.toString(new InputStreamReader(urlConnection.getErrorStream()));
+
 		assertThat(errorContent).contains("This url should be accessed with websocket.");
 	}
 

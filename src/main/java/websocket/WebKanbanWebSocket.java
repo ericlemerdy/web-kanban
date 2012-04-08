@@ -14,7 +14,7 @@ public class WebKanbanWebSocket implements WebSocket.OnTextMessage {
 
 	@Override
 	public void onMessage(String data) {
-		System.out.println(connection + " message received:" + data);
+		System.out.println(connection + " unexpected message:" + data);
 	}
 
 	@Override
@@ -31,20 +31,20 @@ public class WebKanbanWebSocket implements WebSocket.OnTextMessage {
 	}
 
 	public void storyAdded(Story story) {
-		String jsonString = "{'added':{'label':'%s', 'state':'%s'}}".replaceAll("'", "\"");
+		String jsonString = "{'added':{'id':%d, 'label':'%s', 'state':'%s'}}".replaceAll("'", "\"");
 		try {
 			System.out.println(connection + " new story sent");
-			connection.sendMessage(format(jsonString, story.label, story.state));
+			connection.sendMessage(format(jsonString, story.id, story.label, story.state));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
 	public void storyUpdated(Story story) {
-		String jsonString = "{'updated':{'label':'%s', 'state':'%s'}}".replaceAll("'", "\"");
+		String jsonString = "{'updated':{'id':%d, 'label':'%s', 'state':'%s'}}".replaceAll("'", "\"");
 		try {
 			System.out.println(connection + " story updated sent");
-			connection.sendMessage(format(jsonString, story.label, story.state));
+			connection.sendMessage(format(jsonString, story.id, story.label, story.state));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
