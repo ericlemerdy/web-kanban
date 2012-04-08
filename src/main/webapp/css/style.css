@@ -1,11 +1,21 @@
+body {
+    font-family: Helvetica, sans-serif;
+}
+
+#network-status {
+    vertical-align: super;
+    font-size: medium;
+    color: grey;
+}
+
+#network-status.connected {
+    color: #FF0084;
+}
+
 ul {
     list-style: none;
     margin: 0 0 0 0;
     padding: 0 0 25px 0;
-}
-
-body {
-    font-family: Helvetica, sans-serif;
 }
 
 #board {

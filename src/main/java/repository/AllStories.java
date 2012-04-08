@@ -23,13 +23,16 @@ public class AllStories {
 		checkArgument(!isNullOrEmpty(story.label), "Please provide a story label to add.");
 		checkArgument(forName(story.label) == null, "The story '%s' already exists.", story.label);
 		stories.add(story);
+		Clients.getInstance().notifyStoryAdded(story);
 	}
 
 	public void update(String label, String state) {
 		checkArgument(!isNullOrEmpty(label), "Please provide a story label for update.");
 		checkArgument(forName(label) != null, "The story '%s' does not exists.", label);
 		stories.remove(forName(label));
-		add(new Story(state, label));
+		Story story = new Story(state, label);
+		stories.add(story);
+		Clients.getInstance().notifyStoryUpdated(story);
 	}
 
 	private Story forName(final String label) {

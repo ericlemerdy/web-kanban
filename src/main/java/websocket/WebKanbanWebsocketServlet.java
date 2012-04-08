@@ -5,10 +5,15 @@ import org.eclipse.jetty.websocket.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.io.*;
+import java.util.*;
+
+import static com.google.common.collect.Sets.*;
 
 public class WebKanbanWebSocketServlet extends HttpServlet {
 
 	private WebSocketFactory webSocketFactory;
+
+	private Set<WebKanbanWebSocket> clients = newHashSet();
 
 	@Override
 	public void init() throws ServletException {
