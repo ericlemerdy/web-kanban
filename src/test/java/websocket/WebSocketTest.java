@@ -60,11 +60,6 @@ public class WebSocketTest implements WebSocket.OnTextMessage {
 	public void onOpen(Connection connection) {
 		assertThat(connection.isOpen()).isTrue();
 		assertThat(connection.getProtocol()).isEqualTo("kanban");
-		try {
-			connection.sendMessage("{'label': 'nouvelle story !', 'state': 'DONE'}".replaceAll("'", "\""));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 
 	@Override

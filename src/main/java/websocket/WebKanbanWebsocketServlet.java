@@ -1,26 +1,22 @@
 package websocket;
 
 import org.eclipse.jetty.websocket.*;
+import repository.*;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import java.io.*;
-import java.util.*;
-
-import static com.google.common.collect.Sets.*;
 
 public class WebKanbanWebSocketServlet extends HttpServlet {
 
 	private WebSocketFactory webSocketFactory;
-
-	private Set<WebKanbanWebSocket> clients = newHashSet();
 
 	@Override
 	public void init() throws ServletException {
 		webSocketFactory = new WebSocketFactory(new WebSocketFactory.Acceptor() {
 			@Override
 			public WebSocket doWebSocketConnect(HttpServletRequest request, String protocol) {
-				return new WebKanbanWebSocket();
+				return new WebKanbanWebSocket(Clients.getInstance());
 			}
 
 			@Override

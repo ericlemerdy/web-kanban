@@ -11,29 +11,32 @@ import static java.lang.String.*;
 public class WebKanbanWebSocket implements WebSocket.OnTextMessage {
 
 	private Connection connection;
+	private Clients clients;
+
+	public WebKanbanWebSocket(Clients clients) {
+		this.clients = clients;
+	}
 
 	@Override
 	public void onMessage(String data) {
-		System.out.println(connection + " unexpected message:" + data);
+		// Don't care about client messages.
 	}
 
 	@Override
 	public void onOpen(Connection connection) {
-		Clients.getInstance().add(this);
 		this.connection = connection;
-		System.out.println(connection + " connected");
+		clients.registerOpenedWebSocket(this);
 	}
 
 	@Override
 	public void onClose(int closeCode, String message) {
-		Clients.getInstance().remove(this);
-		System.out.println(connection + " closed");
+		connection = null;
+		clients.unregisterClosedWebSocket(this);
 	}
 
 	public void storyAdded(Story story) {
-		String jsonString = "{'added':{'id':%d, 'label':'%s', 'state':'%s'}}".replaceAll("'", "\"");
+		String jsonString = "{'added':{'id':%d, 'label':'%s', 'state':'%s'}}".replace('\'', '"');
 		try {
-			System.out.println(connection + " new story sent");
 			connection.sendMessage(format(jsonString, story.id, story.label, story.state));
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -41,9 +44,8 @@ public class WebKanbanWebSocket implements WebSocket.OnTextMessage {
 	}
 
 	public void storyUpdated(Story story) {
-		String jsonString = "{'updated':{'id':%d, 'label':'%s', 'state':'%s'}}".replaceAll("'", "\"");
+		String jsonString = "{'updated':{'id':%d, 'label':'%s', 'state':'%s'}}".replace('\'', '"');
 		try {
-			System.out.println(connection + " story updated sent");
 			connection.sendMessage(format(jsonString, story.id, story.label, story.state));
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -22,11 +22,11 @@ public class Clients {
 		return instance;
 	}
 
-	public void add(WebKanbanWebSocket webKanbanWebSocket) {
+	public void registerOpenedWebSocket(WebKanbanWebSocket webKanbanWebSocket) {
 		clients.add(webKanbanWebSocket);
 	}
 
-	public void remove(WebKanbanWebSocket webKanbanWebSocket) {
+	public void unregisterClosedWebSocket(WebKanbanWebSocket webKanbanWebSocket) {
 		clients.remove(webKanbanWebSocket);
 	}
 
