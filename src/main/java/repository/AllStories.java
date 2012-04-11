@@ -12,7 +12,10 @@ import static com.google.common.collect.Iterables.*;
 import static com.google.common.collect.Lists.*;
 
 public class AllStories {
-	List<Story> stories = newArrayList(new Story(1, "TODO", "sleep at night"), new Story(2, "WIP", "rest in front of the tv"), new Story(3, "DONE", "eat. a lot."));
+	private List<Story> stories = newArrayList(
+			new Story(1, "TODO", "sleep at night"),
+			new Story(2, "WIP", "rest in front of the tv"),
+			new Story(3, "DONE", "eat. a lot."));
 
 	public List<Story> list() {
 		return ImmutableList.copyOf(stories);
@@ -29,7 +32,7 @@ public class AllStories {
 
 	public void update(final int id, final String state) {
 		Story existingStory = forId(id);
-		checkArgument(existingStory != null, "The story '%i' does not exists.", id);
+		checkArgument(existingStory != null, "The story '%s' does not exists.", id);
 		stories.remove(existingStory);
 		Story story = new Story(existingStory.id, state, existingStory.label);
 		stories.add(story);
