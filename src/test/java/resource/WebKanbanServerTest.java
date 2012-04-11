@@ -59,4 +59,9 @@ public class WebKanbanServerTest {
 	public void when_a_story_change_state_should_save_change() {
 		expect().statusCode(200).when().post("/story/2/WIP").thenReturn();
 	}
+
+	@Test
+	public void should_delete_story() {
+		expect().statusCode(200).when().delete("/story/1").thenReturn();
+	}
 }

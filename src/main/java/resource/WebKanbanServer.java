@@ -55,6 +55,18 @@ public class WebKanbanServer {
 		}
 	}
 
+	@DELETE
+	@Path("story/{id}")
+	@Produces(MediaType.TEXT_PLAIN + "; charset=UTF-8")
+	public Response deleteStory(@PathParam("id") int id) {
+		try {
+			allStories.delete(id);
+			return Response.ok().build();
+		} catch (IllegalArgumentException e) {
+			return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+		}
+	}
+
 	public static HttpServer start() throws IOException {
 		HttpServer httpServer = HttpServerFactory.create("http://localhost:8080/", new KanbanJerseyApplication());
 		httpServer.start();

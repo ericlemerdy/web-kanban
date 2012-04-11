@@ -32,11 +32,18 @@ public class AllStories {
 
 	public void update(final int id, final String state) {
 		Story existingStory = forId(id);
-		checkArgument(existingStory != null, "The story '%s' does not exists.", id);
+		checkArgument(existingStory != null, "The story #%s does not exists.", id);
 		stories.remove(existingStory);
 		Story story = new Story(existingStory.id, state, existingStory.label);
 		stories.add(story);
 		Clients.getInstance().notifyStoryUpdated(story);
+	}
+
+	public void delete(int id) {
+		Story existingStory = forId(id);
+		checkArgument(existingStory != null, "The story #%s does not exists.", id);
+		stories.remove(existingStory);
+		Clients.getInstance().notifyStoryDeleted(id);
 	}
 
 	private Story forName(final String label) {

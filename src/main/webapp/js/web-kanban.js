@@ -3,7 +3,19 @@ var put_story_on_board = function (story) {
     if (storyElement.length == 0) {
         storyElement = $('<li class="story" id="' + story.id + '"></li>');
         storyElement.append(story.label);
+        storyElement.append('<br><a href="#">delete</a>')
         storyElement.show('drop');
+        var closeElement = storyElement.children('a');
+        closeElement.click(function () {
+            $.ajax({
+                url:'api/story/' + story.id,
+                type:'DELETE',
+                dataType:'json',
+                error:function (data) {
+                    $('#error-message').html('<p>' + data.responseText + '</p>');
+                }
+            })
+        });
     } else {
         storyElement.detach();
     }
@@ -61,7 +73,6 @@ var activate_web_socket = function () {
         $('#network-status').toggleClass('connected').html('connected');
     };
     var onmessage = function (m) {
-        console.log("message: " + m.data);
         var action = $.parseJSON(m.data);
         $.each(action, function (index, story) {
             put_story_on_board(story);
@@ -71,8 +82,8 @@ var activate_web_socket = function () {
         $('network-status').toggleClass('connected').html('disconnected');
         this.ws = null;
     };
-    var location = document.location.toString().replace('http://', 'ws://') + "ws";
-    this.ws = new WebSocket(location, "kanban");
+    var location = document.location.toString().replace('http://', 'ws://').replace('#', '') + 'ws';
+    this.ws = new WebSocket(location, 'kanban');
     this.ws.onerror = onerror;
     this.ws.onopen = onopen;
     this.ws.onmessage = onmessage;

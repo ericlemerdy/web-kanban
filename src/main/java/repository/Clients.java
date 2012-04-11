@@ -42,4 +42,9 @@ public class Clients {
 		}
 	}
 
+	public void notifyStoryDeleted(int storyId) {
+		for (WebKanbanWebSocket webKanbanWebSocket : ImmutableSet.copyOf(clients)) {
+			webKanbanWebSocket.storyDeleted(storyId);
+		}
+	}
 }

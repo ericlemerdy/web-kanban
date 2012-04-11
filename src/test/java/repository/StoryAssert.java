@@ -19,6 +19,12 @@ public class StoryAssert extends GenericAssert<StoryAssert, Story> {
 		return this;
 	}
 
+	public StoryAssert id(int expectedId) {
+		isNotNull();
+		assertThat(actual.id).isEqualTo(expectedId);
+		return this;
+	}
+
 	public StoryAssert state(String expectedState) {
 		isNotNull();
 		assertThat(actual.state).isEqualTo(expectedState);

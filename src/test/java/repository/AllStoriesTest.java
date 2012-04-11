@@ -79,7 +79,27 @@ public class AllStoriesTest {
 		try {
 			allStories.update(6, "DONE");
 		} catch (IllegalArgumentException e) {
-			assertThat(e).hasMessage("The story '6' does not exists.");
+			assertThat(e).hasMessage("The story #6 does not exists.");
+			throw e;
+		}
+	}
+
+	@Test
+	public void should_delete_story() {
+		allStories.delete(1);
+
+		final List<Story> stories = allStories.list();
+		assertThat(stories).hasSize(2);
+		RepositoryAssertions.assertThat(stories.get(0)).id(2);
+		RepositoryAssertions.assertThat(stories.get(1)).id(3);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void should_not_delete_story() {
+		try {
+			allStories.delete(42);
+		} catch (IllegalArgumentException e) {
+			assertThat(e).hasMessage("The story #42 does not exists.");
 			throw e;
 		}
 	}

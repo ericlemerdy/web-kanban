@@ -51,4 +51,13 @@ public class WebKanbanWebSocket implements WebSocket.OnTextMessage {
 			e.printStackTrace();
 		}
 	}
+
+	public void storyDeleted(int storyId) {
+		String jsonString = "{'deleted':{'id':%d}}".replace('\'', '"');
+		try {
+			connection.sendMessage(format(jsonString, storyId));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }
