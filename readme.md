@@ -22,7 +22,11 @@ The data is stored in memory server side. It is not persisted when the server sh
 
 Can I use it for a team ?
 -------------------------
-This tool supports several web clients (as long as they refresh the page...). There is a plan to use web socket to synchronize clients.
+This tool supports several web clients. There is a websocket implementation to support updates : any story modification is reflected on other clients.
+
+This is not kanban
+------------------
+This version does not currently supports column creation. Only 3 columns are created by default.
 
 The plan
 --------
