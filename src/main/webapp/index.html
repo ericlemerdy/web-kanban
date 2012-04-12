@@ -17,7 +17,8 @@
 	<div id="board">
 		<aside>
 			<div id="error-message" class="ui-state-error"></div>
-			<input id="add-story-text" type="text" value="Do something new" title="New story label"/>
+			<input id="add-story-text" type="text" value="Do something new" title="New story label"
+				   onkeypress="return addStory(event)"/>
 			<br/>
 			<button id="add-story">Add story</button>
 		</aside>

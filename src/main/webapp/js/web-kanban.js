@@ -1,3 +1,8 @@
+var addStory = function (event) {
+    if (event && event.keyCode == 13) {
+        $('#add-story').click();
+    }
+}
 var put_story_on_board = function (story) {
     var storyElement = $('.story#' + story.id);
     if (storyElement.length == 0) {
