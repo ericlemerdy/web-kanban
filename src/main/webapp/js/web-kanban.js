@@ -51,7 +51,7 @@ var make_states_columns_sortable = function () {
     $('.state').droppable({
         drop:function (event, ui) {
             $.ajax({
-                url:'api/story/' + $(event.srcElement).attr('id') + '/' + this.id,
+                url:'api/story/' + $(ui.draggable).attr('id') + '/' + this.id,
                 type:'POST',
                 error:function (data) {
                     $('#error-message').html('<p>' + data.responseText + '</p>');
