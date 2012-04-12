@@ -2,10 +2,10 @@ var put_story_on_board = function (story) {
     var storyElement = $('.story#' + story.id);
     if (storyElement.length == 0) {
         storyElement = $('<li class="story" id="' + story.id + '"></li>');
+        storyElement.append('<span class="delete">x</span>');
         storyElement.append(story.label);
-        storyElement.append('<br><a href="#">delete</a>')
         storyElement.show('drop');
-        var closeElement = storyElement.children('a');
+        var closeElement = storyElement.children('.delete');
         closeElement.click(function () {
             $.ajax({
                 url:'api/story/' + story.id,
@@ -14,7 +14,8 @@ var put_story_on_board = function (story) {
                 error:function (data) {
                     $('#error-message').html('<p>' + data.responseText + '</p>');
                 }
-            })
+            });
+            return false;
         });
     } else {
         storyElement.detach();
@@ -63,7 +64,7 @@ var verify_web_socket = function () {
     if (!window.WebSocket) {
         window.WebSocket = window.MozWebSocket;
         if (!window.WebSocket)
-            alert("WebSocket not supported by this browser");
+            alert("WebSocket not supported by this browser, please refresh");
     }
 }
 var activate_web_socket = function () {
@@ -82,7 +83,7 @@ var activate_web_socket = function () {
         $('network-status').toggleClass('connected').html('disconnected');
         this.ws = null;
     };
-    var location = document.location.toString().replace('http://', 'ws://').replace('#', '') + 'ws';
+    var location = document.location.toString().replace('http://', 'ws://') + 'ws';
     this.ws = new WebSocket(location, 'kanban');
     this.ws.onerror = onerror;
     this.ws.onopen = onopen;

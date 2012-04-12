@@ -32,6 +32,13 @@ ul {
     width: 163px;
 }
 
+.story .delete {
+    cursor: pointer;
+    font-weight: bold;
+    float: right;
+    color: grey;
+}
+
 .state-column {
     width: 150px;
     display: table-cell;
