@@ -68,6 +68,7 @@ public class WebKanbanServer {
 	}
 
 	public static HttpServer start() throws IOException {
+		allStories = new AllStories();
 		HttpServer httpServer = HttpServerFactory.create("http://localhost:8080/", new KanbanJerseyApplication());
 		httpServer.start();
 		return httpServer;
