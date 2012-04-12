@@ -12,10 +12,11 @@ import static com.google.common.collect.Iterables.*;
 import static com.google.common.collect.Lists.*;
 
 public class AllStories {
-	private List<Story> stories = newArrayList(
-			new Story(1, "TODO", "sleep at night"),
-			new Story(2, "WIP", "rest in front of the tv"),
+	private List<Story> stories = newArrayList( //
+			new Story(1, "TODO", "sleep at night"), //
+			new Story(2, "WIP", "rest in front of the tv"), //
 			new Story(3, "DONE", "eat. a lot."));
+	private Integer lastId = 3;
 
 	public List<Story> list() {
 		return ImmutableList.copyOf(stories);
@@ -24,7 +25,7 @@ public class AllStories {
 	public Story add(String state, String label) {
 		checkArgument(!isNullOrEmpty(label), "Please provide a story label to add.");
 		checkArgument(forName(label) == null, "The story '%s' already exists.", label);
-		Story story = new Story(stories.size() + 1, state, label);
+		Story story = new Story(++lastId, state, label);
 		stories.add(story);
 		Clients.getInstance().notifyStoryAdded(story);
 		return story;
@@ -46,7 +47,7 @@ public class AllStories {
 		Clients.getInstance().notifyStoryDeleted(id);
 	}
 
-	private Story forName(final String label) {
+	protected Story forName(final String label) {
 		try {
 			return find(stories, new Predicate<Story>() {
 				@Override

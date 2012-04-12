@@ -1,13 +1,11 @@
 package repository;
 
-import model.Story;
-import org.fest.assertions.Condition;
-import org.junit.Before;
-import org.junit.Test;
+import model.*;
+import org.junit.*;
 
-import java.util.List;
+import java.util.*;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.assertions.Assertions.*;
 
 public class AllStoriesTest {
 
@@ -95,13 +93,22 @@ public class AllStoriesTest {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void should_not_delete_story() {
+	public void should_not_delete_unexisting_story() {
 		try {
 			allStories.delete(42);
 		} catch (IllegalArgumentException e) {
 			assertThat(e).hasMessage("The story #42 does not exists.");
 			throw e;
 		}
+	}
+
+	@Test
+	public void should_increment_ids_after_create_even_after_a_story_has_been_deleted() {
+		allStories.add("no state", "a story with id 4");
+		allStories.delete(4);
+		allStories.add("no state", "a story with id 5");
+
+		assertThat(allStories.forName("a story with id 5").id).isEqualTo(5);
 	}
 
 }
