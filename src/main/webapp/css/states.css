@@ -1,17 +1,20 @@
+.story {
+    width: 185px;
+    height: 112px;
+    background-image: url('../img/sticky-note.png');
+    background-repeat: no-repeat;
+    margin-bottom: 1em;
+    margin-right: 5px;
+}
+
 #TODO .story {
-    background-color: hotpink;
-    background-image: url('../img/todo.png');
-    color: #000000;
+    background-position: 0 0;
 }
 
 #WIP .story {
-    background-color: lemonchiffon;
-    background-image: url('../img/wip.png');
-    color: #000000;
+    background-position: 0 -112px;
 }
 
 #DONE .story {
-    background-color: cornflowerblue;
-    background-image: url('../img/done.png');
-    color: #000000;
+    background-position: 0 -224px;
 }

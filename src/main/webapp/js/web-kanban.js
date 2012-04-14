@@ -7,8 +7,10 @@ var put_story_on_board = function (story) {
     var storyElement = $('.story#' + story.id);
     if (storyElement.length == 0) {
         storyElement = $('<li class="story" id="' + story.id + '"></li>');
-        storyElement.append('<span class="delete">x</span>');
-        storyElement.append(story.label);
+        var storyTextElement = $('<div class="story-text"></div>');
+        storyElement.append(storyTextElement);
+        storyTextElement.append('<div class="delete" title="Delete story">x</div>');
+        storyTextElement.append(story.label);
         storyElement.show('drop');
         var closeElement = storyElement.children('.delete');
         closeElement.click(function () {
