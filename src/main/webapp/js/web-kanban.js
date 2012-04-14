@@ -6,11 +6,7 @@ var addStory = function (event) {
 var put_story_on_board = function (story) {
     var storyElement = $('.story#' + story.id);
     if (storyElement.length == 0) {
-        storyElement = $('<li class="story" id="' + story.id + '"></li>');
-        var storyTextElement = $('<div class="story-text"></div>');
-        storyElement.append(storyTextElement);
-        storyTextElement.append('<div class="delete" title="Delete story">x</div>');
-        storyTextElement.append(story.label);
+        storyElement = $(Mustache.to_html($('#story-template').html(), story));
         storyElement.show('drop');
         var closeElement = storyElement.children('.delete');
         closeElement.click(function () {
@@ -28,7 +24,6 @@ var put_story_on_board = function (story) {
         storyElement.detach();
     }
     $('#' + story.state).append(storyElement);
-    return storyElement;
 };
 var fetch_and_create_stories = function () {
     $.getJSON('api/stories.json', function (data) {

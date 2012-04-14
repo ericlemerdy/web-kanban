@@ -22,6 +22,14 @@
 			<br/>
 			<button id="add-story">Add story</button>
 		</aside>
+		<script id="story-template" type="text/x-template">
+			<li class="story" id="{{id}}">
+				<div class="story-text">
+					<div class="delete" title="Delete story">x</div>
+					{{label}}
+				</div>
+			</li>
+		</script>
 		<section class="state-column">
 			<header class="headline">Todo</header>
 			<ul class="state" id="TODO"></ul>
@@ -45,6 +53,7 @@
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
 <script>!$.ui && document.write(unescape('%3Cscript src="js/libs/jquery-ui-1.8.18.js"%3E%3C/script%3E'))</script>
 <script src="js/libs/jquery.ui.touch-punch.min-0.2.2.js"></script>
+<script src="js/libs/mustache-0.4.2.js"></script>
 <script src="js/web-kanban.js"></script>
 </body>
 </html>
