@@ -8,7 +8,7 @@ var put_story_on_board = function (story) {
     if (storyElement.length == 0) {
         storyElement = $(Mustache.to_html($('#story-template').html(), story));
         storyElement.show('drop');
-        var closeElement = storyElement.children('.delete');
+        var closeElement = storyElement.children('.story-text').children('.delete');
         closeElement.click(function () {
             $.ajax({
                 url:'api/story/' + story.id,
@@ -58,7 +58,7 @@ var make_states_columns_sortable = function () {
                 error:function (data) {
                     $('#error-message').html('<p>' + data.responseText + '</p>');
                 }
-            })
+            });
         }
     });
 };
