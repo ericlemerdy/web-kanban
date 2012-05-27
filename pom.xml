@@ -87,4 +87,11 @@
             </plugin>
         </plugins>
     </build>
+    <scm>
+    	<url>git://github.com/ericlemerdy/web-kanban.git</url>
+    </scm>
+    <issueManagement>
+    	<system>github</system>
+    	<url>https://github.com/ericlemerdy/web-kanban/issues</url>
+    </issueManagement>
 </project>
