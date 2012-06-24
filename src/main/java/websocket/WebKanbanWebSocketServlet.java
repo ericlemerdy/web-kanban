@@ -1,25 +1,30 @@
 package websocket;
 
-import org.eclipse.jetty.websocket.*;
-import repository.*;
+import java.io.IOException;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import java.io.*;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.eclipse.jetty.websocket.WebSocket;
+import org.eclipse.jetty.websocket.WebSocketFactory;
+
+import repository.Clients;
 
 public class WebKanbanWebSocketServlet extends HttpServlet {
+
+	private static final long serialVersionUID = -1718482262350524618L;
 
 	private WebSocketFactory webSocketFactory;
 
 	@Override
 	public void init() throws ServletException {
 		webSocketFactory = new WebSocketFactory(new WebSocketFactory.Acceptor() {
-			@Override
 			public WebSocket doWebSocketConnect(HttpServletRequest request, String protocol) {
 				return new WebKanbanWebSocket(Clients.getInstance());
 			}
 
-			@Override
 			public boolean checkOrigin(HttpServletRequest request, String origin) {
 				return true;
 			}

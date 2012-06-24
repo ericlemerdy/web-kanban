@@ -48,6 +48,7 @@ var add_story_button = function () {
 }
 var make_states_columns_sortable = function () {
     $('.state').sortable({
+		placeholder:"ui-state-highlight",
         connectWith:".state"
     }).disableSelection();
     $('.state').droppable({
