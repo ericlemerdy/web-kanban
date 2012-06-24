@@ -20,55 +20,59 @@ import com.google.common.io.CharStreams;
 
 public class WebSocketTest implements WebSocket.OnTextMessage {
 
-    private Server server;
+	private Server server;
 
-    @Before
-    public void startWebServer() throws Exception {
-        server = new Server(8080);
-        ServletHandler servletHandler = new ServletHandler();
-        servletHandler.addServletWithMapping(WebKanbanWebSocketServlet.class, "/ws/*");
-        server.setHandler(servletHandler);
-        server.start();
-    }
+	private int port;
 
-    @After
-    public void stopWebServer() throws Exception {
-        server.stop();
-    }
+	@Before
+	public void startWebServer() throws Exception {
+		port = 4242;
+		server = new Server(port);
+		ServletHandler servletHandler = new ServletHandler();
+		servletHandler.addServletWithMapping(WebKanbanWebSocketServlet.class, "/ws/*");
+		server.setHandler(servletHandler);
+		server.start();
+	}
 
-    @Test
-    public void should_refuse_http_GET_gracefully() throws Exception {
-        HttpURLConnection urlConnection = (HttpURLConnection) new URL("http://localhost:8080/ws").openConnection();
-        assertThat(urlConnection.getResponseCode()).isEqualTo(503);
-        String errorContent = CharStreams.toString(new InputStreamReader(urlConnection.getErrorStream()));
+	@After
+	public void stopWebServer() throws Exception {
+		server.stop();
+	}
 
-        assertThat(errorContent).contains("This url should be accessed with websocket.");
-    }
+	@Test
+	public void should_refuse_http_GET_gracefully() throws Exception {
+		HttpURLConnection urlConnection = (HttpURLConnection) new URL("http://localhost:" + port + "/ws")
+				.openConnection();
+		assertThat(urlConnection.getResponseCode()).isEqualTo(503);
+		String errorContent = CharStreams.toString(new InputStreamReader(urlConnection.getErrorStream()));
 
-    @Test
-    public void with_a_new_story_should_receive_a_message() throws Exception {
-        WebSocketClientFactory webSocketClientFactory = new WebSocketClientFactory();
-        webSocketClientFactory.start();
-        try {
-            WebSocketClient webSocketClient = webSocketClientFactory.newWebSocketClient();
-            webSocketClient.setProtocol("kanban");
-            webSocketClient.open(URI.create("ws://localhost:8080/ws"), this).get();
-        } finally {
-            webSocketClientFactory.stop();
-        }
-    }
+		assertThat(errorContent).contains("This url should be accessed with websocket.");
+	}
 
-    public void onMessage(String data) {
-        assertThat(data).isNotNull().isEqualTo("toto");
-    }
+	@Test
+	public void with_a_new_story_should_receive_a_message() throws Exception {
+		WebSocketClientFactory webSocketClientFactory = new WebSocketClientFactory();
+		webSocketClientFactory.start();
+		try {
+			WebSocketClient webSocketClient = webSocketClientFactory.newWebSocketClient();
+			webSocketClient.setProtocol("kanban");
+			webSocketClient.open(URI.create("ws://localhost:" + port + "/ws"), this).get();
+		} finally {
+			webSocketClientFactory.stop();
+		}
+	}
 
-    public void onOpen(Connection connection) {
-        assertThat(connection.isOpen()).isTrue();
-        assertThat(connection.getProtocol()).isEqualTo("kanban");
-    }
+	public void onMessage(String data) {
+		assertThat(data).isNotNull().isEqualTo("toto");
+	}
 
-    public void onClose(int closeCode, String message) {
-        assertThat(closeCode).isNotNull().isEqualTo(1006);
-        assertThat(message).isEqualTo("Connection refused");
-    }
+	public void onOpen(Connection connection) {
+		assertThat(connection.isOpen()).isTrue();
+		assertThat(connection.getProtocol()).isEqualTo("kanban");
+	}
+
+	public void onClose(int closeCode, String message) {
+		assertThat(closeCode).isNotNull().isEqualTo(1006);
+		assertThat(message).isEqualTo("Connection refused");
+	}
 }

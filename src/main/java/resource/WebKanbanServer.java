@@ -1,16 +1,28 @@
 package resource;
 
-import com.google.common.collect.*;
-import com.sun.jersey.api.container.httpserver.*;
-import com.sun.net.httpserver.*;
-import config.*;
-import model.*;
-import org.codehaus.jettison.json.*;
-import repository.*;
+import java.io.IOException;
 
-import javax.ws.rs.*;
-import javax.ws.rs.core.*;
-import java.io.*;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+import model.Story;
+
+import org.codehaus.jettison.json.JSONException;
+
+import repository.AllStories;
+
+import com.google.common.collect.ImmutableMap;
+import com.sun.jersey.api.container.httpserver.HttpServerFactory;
+import com.sun.net.httpserver.HttpServer;
+
+import config.KanbanJerseyApplication;
 
 @Path("/")
 public class WebKanbanServer {
@@ -26,7 +38,7 @@ public class WebKanbanServer {
 
 	@PUT
 	@Path("story/{label}")
-	@Produces({MediaType.APPLICATION_JSON + "; charset=UTF-8", MediaType.TEXT_PLAIN + "; charset=UTF-8"})
+	@Produces({ MediaType.APPLICATION_JSON + "; charset=UTF-8", MediaType.TEXT_PLAIN + "; charset=UTF-8" })
 	public Response addStory(@PathParam("label") String label) {
 		try {
 			Story newStory = allStories.add("TODO", label);
@@ -69,7 +81,7 @@ public class WebKanbanServer {
 
 	public static HttpServer start() throws IOException {
 		allStories = new AllStories();
-		HttpServer httpServer = HttpServerFactory.create("http://localhost:8080/", new KanbanJerseyApplication());
+		HttpServer httpServer = HttpServerFactory.create("http://127.0.0.1:4242/", new KanbanJerseyApplication());
 		httpServer.start();
 		return httpServer;
 	}
