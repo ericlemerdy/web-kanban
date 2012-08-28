@@ -69,7 +69,7 @@ public class AllStoriesTest {
 		allStories.update(2, "DONE");
 
 		final Story updatedStory = allStories.list().get(2);
-		RepositoryAssertions.assertThat(updatedStory).state("DONE");
+		RepositoryAssertions.assertThat(updatedStory).hasState("DONE");
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -88,8 +88,8 @@ public class AllStoriesTest {
 
 		final List<Story> stories = allStories.list();
 		assertThat(stories).hasSize(2);
-		RepositoryAssertions.assertThat(stories.get(0)).id(2);
-		RepositoryAssertions.assertThat(stories.get(1)).id(3);
+		RepositoryAssertions.assertThat(stories.get(0)).hasId(2);
+		RepositoryAssertions.assertThat(stories.get(1)).hasId(3);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
