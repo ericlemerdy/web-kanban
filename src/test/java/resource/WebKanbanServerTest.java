@@ -7,26 +7,9 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.not;
 
-import java.io.IOException;
-
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
-import com.sun.net.httpserver.HttpServer;
-
-public class WebKanbanServerTest {
-	private HttpServer server;
-
-	@Before
-	public void startWebServer() throws IOException {
-		server = WebKanbanServer.start();
-	}
-
-	@After
-	public void stopWebServer() {
-		server.stop(0);
-	}
+public class WebKanbanServerTest extends WebKanbanServerRunner {
 
 	@Test
 	public void should_retrieve_stories_as_JSON() {
