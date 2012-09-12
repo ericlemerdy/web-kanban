@@ -13,75 +13,86 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import model.Story;
-
-import org.codehaus.jettison.json.JSONException;
-
 import repository.AllStories;
 
 import com.google.common.collect.ImmutableMap;
 import com.sun.jersey.api.container.httpserver.HttpServerFactory;
 import com.sun.net.httpserver.HttpServer;
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
+import com.wordnik.swagger.jaxrs.JavaHelp;
 
 import config.KanbanJerseyApplication;
 
-@Path("/")
-public class WebKanbanServer {
+@Path(value = "/")
+@Api(value = "/help/", description = "Stories")
+@Produces(MediaType.TEXT_PLAIN + "; charset=UTF-8")
+public class WebKanbanServer extends JavaHelp {
 
 	private static AllStories allStories = new AllStories();
 
 	@GET
-	@Path("stories.json")
+	@Path(value = "stories.json")
+	@ApiOperation(value = "List all stories", notes = "Add extra notes here", responseClass = "model.Story")
 	@Produces(MediaType.APPLICATION_JSON + "; charset=UTF-8")
-	public Response stories() throws JSONException {
-		return Response.ok(ImmutableMap.of("stories", allStories.list())).build();
+	public Response stories() {
+		return Response.ok(ImmutableMap.of("stories", allStories.list()))
+				.build();
 	}
 
 	@PUT
-	@Path("story/{label}")
-	@Produces({ MediaType.APPLICATION_JSON + "; charset=UTF-8", MediaType.TEXT_PLAIN + "; charset=UTF-8" })
+	@Path(value = "story/{label}")
+	@ApiOperation(value = "Add story", notes = "Add extra notes here", responseClass = "model.Story")
+	@Produces({ MediaType.APPLICATION_JSON + "; charset=UTF-8",
+			MediaType.TEXT_PLAIN + "; charset=UTF-8" })
 	public Response addStory(@PathParam("label") String label) {
 		try {
 			Story newStory = allStories.add("TODO", label);
-			return Response.status(Response.Status.CREATED).entity(newStory).build();
+			return Response.status(Response.Status.CREATED).entity(newStory)
+					.build();
 		} catch (Exception e) {
-			return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+			return Response.status(Response.Status.BAD_REQUEST)
+					.entity(e.getMessage()).build();
 		}
 	}
 
 	@PUT
-	@Path("story")
-	@Produces(MediaType.TEXT_PLAIN + "; charset=UTF-8")
+	@Path(value = "story")
 	public Response addStoryWithAnEmptyLabel() {
-		return Response.status(Response.Status.BAD_REQUEST).entity("Please provide a story label to add.").build();
+		return Response.status(Response.Status.BAD_REQUEST)
+				.entity("Please provide a story label to add.").build();
 	}
 
 	@POST
-	@Path("story/{id}/{state}")
-	@Produces(MediaType.TEXT_PLAIN + "; charset=UTF-8")
-	public Response changeStoryState(@PathParam("id") int id, @PathParam("state") String state) {
+	@Path(value = "story/{id}/{state}")
+	public Response changeStoryState(@PathParam("id") int id,
+			@PathParam("state") String state) {
 		try {
 			allStories.update(id, state);
 			return Response.ok().build();
 		} catch (Exception e) {
-			return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+			return Response.status(Response.Status.BAD_REQUEST)
+					.entity(e.getMessage()).build();
 		}
 	}
 
 	@DELETE
-	@Path("story/{id}")
+	@Path(value = "story/{id}")
 	@Produces(MediaType.TEXT_PLAIN + "; charset=UTF-8")
 	public Response deleteStory(@PathParam("id") int id) {
 		try {
 			allStories.delete(id);
 			return Response.ok().build();
 		} catch (IllegalArgumentException e) {
-			return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+			return Response.status(Response.Status.BAD_REQUEST)
+					.entity(e.getMessage()).build();
 		}
 	}
 
 	public static HttpServer start() throws IOException {
 		allStories = new AllStories();
-		HttpServer httpServer = HttpServerFactory.create("http://127.0.0.1:4242/", new KanbanJerseyApplication());
+		HttpServer httpServer = HttpServerFactory.create(
+				"http://127.0.0.1:4242/", new KanbanJerseyApplication());
 		httpServer.start();
 		return httpServer;
 	}

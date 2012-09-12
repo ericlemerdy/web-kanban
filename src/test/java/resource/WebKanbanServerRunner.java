@@ -22,7 +22,9 @@ public class WebKanbanServerRunner {
 
 	@After
 	public void stopWebServer() {
-		server.stop(0);
+		if (server != null) {
+			server.stop(0);
+		}
 	}
 
 }
