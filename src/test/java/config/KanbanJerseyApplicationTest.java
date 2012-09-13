@@ -25,6 +25,7 @@ public class KanbanJerseyApplicationTest {
 				com.wordnik.swagger.jaxrs.ApiListingResourceJSON.class, //
 				com.wordnik.swagger.jaxrs.ApiListingResourceXML.class);
 		assertThat(config.getFeatures()).includes(
-				entry("com.sun.jersey.api.json.POJOMappingFeature", true));
+						entry(com.sun.jersey.api.json.JSONConfiguration.FEATURE_POJO_MAPPING,
+								true));
 	}
 }

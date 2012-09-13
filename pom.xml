@@ -9,20 +9,32 @@
 	<url>http://maven.apache.org</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<jersey.version>1.13</jersey.version>
+		<jersey.version>1.14</jersey.version>
+		<swagger.version>1.1.0</swagger.version>
+		<jetty.version>8.1.7.v20120910</jetty.version>
 		<maven.compile.target>1.7</maven.compile.target>
 		<maven.compile.source>1.7</maven.compile.source>
 	</properties>
 	<dependencies>
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-core</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
 		<dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-server</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
+        <dependency>
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-server</artifactId>
-			<version>8.1.6.v20120903</version>
+			<version>${jetty.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-websocket</artifactId>
-			<version>8.1.6.v20120903</version>
+			<version>${jetty.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.guava</groupId>
@@ -30,14 +42,14 @@
 			<version>13.0.1</version>
 		</dependency>
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.5</version>
+			<groupId>com.wordnik</groupId>
+			<artifactId>swagger-jaxrs_2.9.1</artifactId>
+			<version>${swagger.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.wordnik</groupId>
-			<artifactId>swagger-jaxrs_2.9.1</artifactId>
-			<version>1.0.2</version>
+			<artifactId>swagger-annotations_2.9.1</artifactId>
+			<version>${swagger.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -45,6 +57,12 @@
 			<version>4.10</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-json</artifactId>
+            <version>${jersey.version}</version>
+            <scope>test</scope>
+        </dependency>
 		<dependency>
 			<groupId>com.jayway.restassured</groupId>
 			<artifactId>rest-assured</artifactId>
@@ -58,9 +76,15 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-library</artifactId>
+			<version>1.2.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
-			<artifactId>test-jetty-servlet</artifactId>
-			<version>8.1.6.v20120903</version>
+			<artifactId>jetty-servlet</artifactId>
+			<version>${jetty.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>

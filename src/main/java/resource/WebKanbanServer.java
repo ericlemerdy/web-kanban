@@ -25,7 +25,7 @@ import com.wordnik.swagger.jaxrs.JavaHelp;
 import config.KanbanJerseyApplication;
 
 @Path(value = "/")
-@Api(value = "/help/", description = "Stories")
+@Api(value = "/help/", description = "Stories", basePath = "basePath/defined/in/resource", listingPath = "listingPath/defined/in/resource")
 @Produces(MediaType.TEXT_PLAIN + "; charset=UTF-8")
 public class WebKanbanServer extends JavaHelp {
 
@@ -33,7 +33,7 @@ public class WebKanbanServer extends JavaHelp {
 
 	@GET
 	@Path(value = "stories.json")
-	@ApiOperation(value = "List all stories", notes = "Add extra notes here", responseClass = "model.Story")
+	@ApiOperation(value = "List all stories", notes = "Add extra notes here", responseClass = "model.Story", httpMethod = "GET", multiValueResponse = true)
 	@Produces(MediaType.APPLICATION_JSON + "; charset=UTF-8")
 	public Response stories() {
 		return Response.ok(ImmutableMap.of("stories", allStories.list()))

@@ -9,5 +9,8 @@ public class KanbanJerseyApplication extends PackagesResourceConfig {
 		getFeatures().putAll(
 				ImmutableMap.of("com.sun.jersey.api.json.POJOMappingFeature",
 						true));
+		getProperties().put("swagger.api.basepath",
+				"http://localhost:8080/api/");
+		getProperties().put("api.version", "1.0");
 	}
 }
