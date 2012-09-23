@@ -20,21 +20,21 @@ import com.sun.jersey.api.container.httpserver.HttpServerFactory;
 import com.sun.net.httpserver.HttpServer;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
+import com.wordnik.swagger.annotations.ApiParam;
 import com.wordnik.swagger.jaxrs.JavaHelp;
 
 import config.KanbanJerseyApplication;
 
 @Path(value = "/")
-@Api(value = "/help/", description = "Stories", basePath = "basePath/defined/in/resource", listingPath = "listingPath/defined/in/resource")
-@Produces(MediaType.TEXT_PLAIN + "; charset=UTF-8")
+@Api(value = "/", description = "Stories")
+@Produces({ MediaType.APPLICATION_JSON })
 public class WebKanbanServer extends JavaHelp {
 
 	private static AllStories allStories = new AllStories();
 
 	@GET
-	@Path(value = "stories.json")
+	@Path(value = "/stories.json")
 	@ApiOperation(value = "List all stories", notes = "Add extra notes here", responseClass = "model.Story", httpMethod = "GET", multiValueResponse = true)
-	@Produces(MediaType.APPLICATION_JSON + "; charset=UTF-8")
 	public Response stories() {
 		return Response.ok(ImmutableMap.of("stories", allStories.list()))
 				.build();
@@ -43,9 +43,8 @@ public class WebKanbanServer extends JavaHelp {
 	@PUT
 	@Path(value = "story/{label}")
 	@ApiOperation(value = "Add story", notes = "Add extra notes here", responseClass = "model.Story")
-	@Produces({ MediaType.APPLICATION_JSON + "; charset=UTF-8",
-			MediaType.TEXT_PLAIN + "; charset=UTF-8" })
-	public Response addStory(@PathParam("label") String label) {
+	public Response addStory(
+			@PathParam("label") @ApiParam(value = "Label to set") String label) {
 		try {
 			Story newStory = allStories.add("TODO", label);
 			return Response.status(Response.Status.CREATED).entity(newStory)
@@ -57,6 +56,7 @@ public class WebKanbanServer extends JavaHelp {
 	}
 
 	@PUT
+	@ApiOperation(value = "Add story", notes = "Add extra notes here", responseClass = "model.Story")
 	@Path(value = "story")
 	public Response addStoryWithAnEmptyLabel() {
 		return Response.status(Response.Status.BAD_REQUEST)
@@ -64,9 +64,12 @@ public class WebKanbanServer extends JavaHelp {
 	}
 
 	@POST
+	@ApiOperation(value = "Add story", notes = "Add extra notes here", responseClass = "model.Story")
 	@Path(value = "story/{id}/{state}")
-	public Response changeStoryState(@PathParam("id") int id,
-			@PathParam("state") String state) {
+	public Response changeStoryState(
+			//
+			@PathParam("id") @ApiParam(value = "id of story to change state") int id,
+			@PathParam("state") @ApiParam(value = "New state to set") String state) {
 		try {
 			allStories.update(id, state);
 			return Response.ok().build();
@@ -77,9 +80,10 @@ public class WebKanbanServer extends JavaHelp {
 	}
 
 	@DELETE
+	@ApiOperation(value = "Delete story", notes = "Add extra notes here", responseClass = "model.Story")
 	@Path(value = "story/{id}")
-	@Produces(MediaType.TEXT_PLAIN + "; charset=UTF-8")
-	public Response deleteStory(@PathParam("id") int id) {
+	public Response deleteStory(
+			@PathParam("id") @ApiParam(value = "The story id to delete") int id) {
 		try {
 			allStories.delete(id);
 			return Response.ok().build();
