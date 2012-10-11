@@ -3,10 +3,17 @@ var addStory = function (event) {
         $('#add-story').click();
     }
 }
+function urlify(story) {
+    var storyUrlified = jQuery.extend({}, story);
+    var urlRegex = /(https?:\/\/[^\s]+)/g;
+    storyUrlified.labelUrlified = story.label.replace(urlRegex, '<a href="$1" target="blank">$1</a>');
+    return storyUrlified;
+}
 var put_story_on_board = function (story) {
     var storyElement = $('.story#' + story.id);
     if (storyElement.length == 0) {
-        storyElement = $(Mustache.to_html($('#story-template').html(), story));
+        var storyUrlified = urlify(story);
+        storyElement = $(Mustache.to_html($('#story-template').html(), storyUrlified));
         storyElement.show('drop');
         var closeElement = storyElement.children('.story-text').children('.delete');
         closeElement.click(function () {
@@ -37,7 +44,7 @@ var add_story_button = function () {
     addStory.button();
     addStory.click(function () {
         $.ajax({
-            url:'api/story/' + $('#add-story-text').val(),
+            url:'api/story/' + encodeURIComponent($('#add-story-text').val()),
             type:'PUT',
             dataType:'json',
             error:function (data) {
