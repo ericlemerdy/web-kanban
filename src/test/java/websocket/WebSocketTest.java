@@ -1,6 +1,6 @@
 package websocket;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;

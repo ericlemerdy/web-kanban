@@ -1,14 +1,14 @@
 package repository;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import model.Story;
 
-import org.fest.assertions.GenericAssert;
+import org.assertj.core.api.AbstractAssert;
 
-public class StoryAssert extends GenericAssert<StoryAssert, Story> {
+public class StoryAssert extends AbstractAssert<StoryAssert, Story> {
 
   protected StoryAssert(Story actualStory) {
-    super(StoryAssert.class, actualStory);
+    super(actualStory, StoryAssert.class);
   }
 
   public StoryAssert isEqualTo(int expectedId, String expectedLabel, String expectedState) {

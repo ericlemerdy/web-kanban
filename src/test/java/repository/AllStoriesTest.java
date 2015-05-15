@@ -1,11 +1,13 @@
 package repository;
 
-import model.*;
-import org.junit.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.*;
+import java.util.List;
 
-import static org.fest.assertions.Assertions.*;
+import model.Story;
+
+import org.junit.Before;
+import org.junit.Test;
 
 public class AllStoriesTest {
 
